@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Calculateur de dates</title>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline';"
+    />
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
+  </head>
+  <body>
+    <h1>Calculateur de dates de formation</h1>
+    
+    <form id="date-calculator">
+        <label for="formation-name">Nom de la formation :</label>
+        <input type="text" id="formation-name" required>
+
+        <label for="temporalite">Temporalité (en mois) :</label>
+        <input type="number" id="temporalite" required>
+
+        <label for="start-date">Date de début :</label>
+        <input type="date" id="start-date" required>
+
+        <label for="unite1">Unité 1 (jours) :</label>
+        <input type="number" id="unite1" required>
+
+        <label for="unite2">Unité 2 (jours) :</label>
+        <input type="number" id="unite2" required>
+
+        <label for="unite3">Unité 3 (jours) :</label>
+        <input type="number" id="unite3" required>
+
+        <label for="unite4">Unité 4 (jours) :</label>
+        <input type="number" id="unite4" required>
+
+        <button type="button" id="calculate-date">Calculer</button>
+    </form>
+
+    <div id="results">
+        <p id="result0"></p>
+        <p id="result1"></p>
+        <p id="result2"></p>
+        <p id="result3"></p>
+        <p id="result4"></p>
+        <p id="result5"></p>
+    </div>
+
+    <h2>Historique des calculs</h2>
+    <button id="toggleHistory">Afficher l'historique</button>
+    <div id="historyContainer"></div>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>
