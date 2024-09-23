@@ -1,14 +1,39 @@
 {
-  "name": "my-electron-app",
+  "name": "date-calculator",
   "version": "1.0.0",
   "description": "Date Calculator",
   "main": "index.js",
+  "build": {
+    "appId": "com.votre.application",
+    "productName": "date-calculator",
+    "files": [
+      "index.js",
+      "index.html",
+      "styles.css",
+      "favicon.ico",
+      "renderer.js",
+      "preload.js",
+      "package-lock.json",
+      "package.json",
+      "forge.config.js"
+    ],
+    "win": {
+      "icon": "favicon.ico"
+    },
+    "mac": {
+      "icon": "favicon.ico"
+    },
+    "linux": {
+      "icon": "favicon.ico"
+    }
+  },
   "scripts": {
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "watch": "watchify renderer.js -o bundle.js --debug --verbose"
+    "watch": "watchify renderer.js -o bundle.js --debug --verbose",
+    "build": "electron-builder"
   },
   "author": "Kirigatsu",
   "license": "ISC",
@@ -22,6 +47,7 @@
     "@electron-forge/plugin-fuses": "^7.5.0",
     "@electron/fuses": "^1.8.0",
     "electron": "^32.1.2",
+    "electron-builder": "^25.0.5",
     "electron-reloader": "^1.2.3"
   },
   "dependencies": {

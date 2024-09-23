@@ -1,51 +1,41 @@
-const { app, BrowserWindow, ipcMain, nativeTheme } = require('electron/main')
-const path = require('node:path')
+const { app, BrowserWindow, Menu } = require('electron');
+const path = require('path');
 
-try {
-  require('electron-reloader')(module, {
-    debug: true,
-    watchRenderer: true
-  });
-} catch (_) { console.log('Error'); }
+let mainWindow; // Déclaration d'une variable pour la fenêtre principale
 
-function createWindow () {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+function createWindow() {
+    if (mainWindow) { // Vérifie si la fenêtre existe déjà
+        mainWindow.focus(); // Focalise la fenêtre existante
+        return;
     }
-  })
 
-  win.loadFile('index.html')
-  win.webContents.openDevTools()
+    mainWindow = new BrowserWindow({ // Associe la fenêtre à la variable
+        width: 800,
+        height: 600,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false
+        },
+        icon: path.join(__dirname, 'favicon.ico')
+    });
+
+    // Supprimer la barre de menu
+    Menu.setApplicationMenu(null);
+    mainWindow.webContents.openDevTools()
+    mainWindow.loadFile('index.html');
 }
 
-ipcMain.handle('dark-mode:toggle', () => {
-  if (nativeTheme.shouldUseDarkColors) {
-    nativeTheme.themeSource = 'light'
-  } else {
-    nativeTheme.themeSource = 'dark'
-  }
-  return nativeTheme.shouldUseDarkColors
-})
+// app.whenReady().then(() => {
+//     app.setAutoUpdaterEnabled(false);
+//     createWindow();
+// });
 
-ipcMain.handle('dark-mode:system', () => {
-  nativeTheme.themeSource = 'system'
-})
-
-app.whenReady().then(() => {
-  createWindow()
-
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow()
-    }
-  })
-})
+app.on('ready', () => {
+    createWindow();
+});
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
+    if (process.platform !== 'darwin') {
+        app.quit();
+    }
+});
