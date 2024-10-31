@@ -1,22 +1,22 @@
-function addDays(date, days) {
+function addWeeks(date, weeks) {
     const result = new Date(date);
-    result.setDate(result.getDate() + days);
+    result.setDate(result.getDate() + weeks * 7);
     return result;
 }
 
-function removeDays(date, days) {
+function removeWeeks(date, weeks) {
     const result = new Date(date);
-    result.setDate(result.getDate() - days);
+    result.setDate(result.getDate() - weeks * 7);
     return result;
 }
 
-// Fonction pour ajouter des mois à une date
-function addMonths(date, months) {
-    const result = new Date(date);
-    result.setMonth(result.getMonth() + months);
-    result.setDate(result.getDate() - 1);
-    return result;
-}
+// // Fonction pour ajouter des mois à une date
+// function addMonths(date, months) {
+//     const result = new Date(date);
+//     result.setMonth(result.getMonth() + months);
+//     result.setDate(result.getDate() - 1);
+//     return result;
+// }
 
 
 // Fonction pour formater une date
@@ -101,15 +101,19 @@ document.getElementById('calculate-date').addEventListener('click', () => {
     const unite3 = parseInt(document.getElementById('unite3').value, 10);
     const unite4 = parseInt(document.getElementById('unite4').value, 10);
 
-    // Calculer la date de fin en ajoutant des mois
-    let endDate = addMonths(startDate, temporalite);
+    // Calculer la date de fin en ajoutant des semaines
+    let endDate = addWeeks(startDate, temporalite);
+
 
     // Calculer les dates intermédiaires
-    const unite1Date = addDays(startDate, unite1);
-    const unite2Date = addDays(unite1Date, unite2);
-    const unite3Date = addDays(unite2Date, unite3);
-    const unite4Date = removeDays(endDate, unite4);
+    const unite1Date = addWeeks(startDate, unite1);
+    const unite2Date = addWeeks(unite1Date, unite2);
+    const unite3Date = addWeeks(unite2Date, unite3);
+    const unite4Date = removeWeeks(endDate, unite4);
 
+    unite1Date.setDate(unite1Date.getDate() - 1); // Soustraire 1 jour à la date de début
+    unite2Date.setDate(unite2Date.getDate() - 1); // Soustraire 1 jour à la date de début
+    unite3Date.setDate(unite3Date.getDate() - 1); // Soustraire 1 jour à la date de début
     // Vérifier si la date calculée par jours dépasse la date de fin calculée par mois
     if (unite4Date > endDate) {
         endDate = unite4Date;

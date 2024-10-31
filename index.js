@@ -21,7 +21,7 @@ function createWindow() {
 
     // Supprimer la barre de menu
     Menu.setApplicationMenu(null);
-    mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
     mainWindow.loadFile('index.html');
 }
 
